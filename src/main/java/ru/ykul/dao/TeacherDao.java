@@ -1,6 +1,7 @@
 package ru.ykul.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,17 @@ public class TeacherDao {
                 stream().findAny().orElse(null);
     }
 
+    public Integer showTeacherId(String firstName, String lastName) {
+        Integer teacherId = jdbcTemplate.queryForObject("SELECT id FROM teachers " +
+                "WHERE firstname = ? AND lastname = ?", Integer.class, firstName, lastName);
+
+        if (teacherId != null) {
+            return teacherId;
+        } else {
+            throw new RuntimeException("The teacher was not found");
+        }
+    }
+
     public void create(Teacher teacher) {
         jdbcTemplate.update("INSERT INTO teachers (firstname, lastname) VALUES (?, ?)",
                 teacher.getFirstName(), teacher.getLastName());
@@ -40,7 +52,6 @@ public class TeacherDao {
     }
 
     public void delete(int id) {
-        jdbcTemplate.update("UPDATE courses SET teacher_id = null WHERE teacher_id = ?", id);
         jdbcTemplate.update("DELETE FROM teachers WHERE id = ?", id);
     }
 }

@@ -1,34 +1,27 @@
 package ru.ykul.model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@ToString
 public class Group {
 
+    private int id;
+
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 5, max = 20, message = "Name should be between 2 and 30 characters")
     private String name;
-    private String course;
+    private Course course;
 
-    public Group(String name, String course) {
+    public Group(String name, Course course) {
         this.name = name;
         this.course = course;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    @Override
-    public String toString() {
-        return "Group name: " + name +
-                ", course: " + course;
     }
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -51,30 +51,20 @@
                 <th scope="col">Id</th>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
+                <th scope="col">Teacher first name</th>
+                <th scope="col">Teacher last name</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><a class="table-item table-item-link" href="courses-edit.html">1</a></td>
-                    <td><a class="table-item table-item-link" href="courses-edit.html">Mathematics</a></td>
-                    <td><a class="table-item table-item-link" href="courses-edit.html">Mathematics is an area of knowledge that includes the topics of numbers, formulas and related structures, shapes and the spaces in which they are contained, and quantities and their changes.</a></td>
+                <tr th:each="course : ${courseModel}">
+                    <td><a class="table-item table-item-link" th:href="@{/courses/{id}/edit(id=${course.getId()})}" th:text="${course.getId()}">id</a></td>
+                    <td><a class="table-item table-item-link" th:href="@{/courses/{id}/edit(id=${course.getId()})}" th:text="${course.getTitle()}">title</a></td>
+                    <td><a class="table-item table-item-link" th:href="@{/courses/{id}/edit(id=${course.getId()})}" th:text="${course.getDescription()}">description</a></td>
+                    <td><a class="table-item table-item-link" th:href="@{/courses/{id}/edit(id=${course.getId()})}" th:text="${course.getTeacher().firstName}">firstname</a></td>
+                    <td><a class="table-item table-item-link" th:href="@{/courses/{id}/edit(id=${course.getId()})}" th:text="${course.getTeacher().lastName}">firstname</a></td>
                     <td>
-                        <form method="POST" action="#">
-                            <button type="submit" class="table-item table-item-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                </svg>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a class="table-item table-item-link" href="courses-edit.html">2</a></td>
-                    <td><a class="table-item table-item-link" href="courses-edit.html">Physics</a></td>
-                    <td><a class="table-item table-item-link" href="courses-edit.html">Physics is the natural science of matter, involving the study of matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force.</a></td>
-                    <td>
-                        <form method="POST" action="#">
+                        <form th:method="DELETE" th:action="@{/courses/{id}(id=${course.getId()})}">
                             <button type="submit" class="table-item table-item-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
@@ -85,7 +75,7 @@
                 </tr>
             </tbody>
         </table>
-        <a type="button" class="btn btn-success" href="create.html">New</a>
+        <a type="button" class="btn btn-success" href="/courses/new">New</a>
     </div>
 </main>
 </body>

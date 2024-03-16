@@ -8,16 +8,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.ykul.dao.TeacherDao;
 import ru.ykul.model.Teacher;
+import ru.ykul.service.TeachersService;
 
 @Controller
 @RequestMapping("/teachers")
 public class TeachersController {
 
     private final TeacherDao teacherDao;
+    private final TeachersService teachersService;
 
     @Autowired
-    public TeachersController(TeacherDao teacherDao) {
+    public TeachersController(TeacherDao teacherDao, TeachersService teachersService) {
         this.teacherDao = teacherDao;
+        this.teachersService = teachersService;
     }
 
     @GetMapping()
@@ -40,14 +43,14 @@ public class TeachersController {
 
     @GetMapping("/new")
     public String newTeacher(@ModelAttribute("teacher") Teacher teacher) {
-        return "templates/create";
+        return "templates/teachers-create";
     }
 
     @PostMapping()
     public String create(@ModelAttribute("teacher") @Valid Teacher teacher,
                        BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return "templates/create";
+            return "templates/teachers-create";
 
         teacherDao.create(teacher);
         return "redirect:/teachers";
@@ -55,7 +58,7 @@ public class TeachersController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        teacherDao.delete(id);
+        teachersService.deleteTeacher(id);
         return "redirect:/teachers";
     }
 }

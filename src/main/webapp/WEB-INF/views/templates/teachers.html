@@ -55,7 +55,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="teacher : ${teachersModel}">
+              <tr th:each="teacher : ${teachersModel}">
                 <td><a class="table-item table-item-link" th:href="@{/teachers/{id}/edit(id=${teacher.getId()})}" th:text="${teacher.getId()}">id</a></td>
                 <td><a class="table-item table-item-link" th:href="@{/teachers/{id}/edit(id=${teacher.getId()})}" th:text="${teacher.getFirstName()}">name</a></td>
                 <td><a class="table-item table-item-link" th:href="@{/teachers/{id}/edit(id=${teacher.getId()})}" th:text="${teacher.getLastName()}">surname</a></td>
@@ -68,7 +68,7 @@
                         </button>
                     </form>
                 </td>
-            </tr>
+              </tr>
             </tbody>
         </table>
         <a type="button" class="btn btn-success" href="/teachers/new">New</a>
