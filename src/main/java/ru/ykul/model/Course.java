@@ -19,7 +19,7 @@ public class Course {
     @Size(min = 2, max = 40, message = "Title should be between 2 and 30 characters")
     private String title;
     @NotEmpty(message = "Description should not be empty")
-    @Size(min = 40, max = 100, message = "Title should be between 40 and 100 characters")
+    @Size(min = 40, max = 500, message = "Title should be between 40 and 500 characters")
     private String description;
     private Teacher teacher;
 

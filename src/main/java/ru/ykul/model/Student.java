@@ -13,18 +13,20 @@ import lombok.ToString;
 @ToString
 public class Student {
 
+    private int id;
+
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
-    private String name;
+    private String firstName;
 
     @NotEmpty(message = "Surname should not be empty")
     @Size(min = 2, max = 30, message = "Surname should be between 2 and 30 characters")
-    private String surname;
+    private String lastName;
     private Group group;
 
-    public Student(String name, String surname, Group group) {
-        this.name = name;
-        this.surname = surname;
+    public Student(String firstName, String lastName, Group group) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.group = group;
     }
 }

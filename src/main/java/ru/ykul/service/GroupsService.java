@@ -1,5 +1,6 @@
 package ru.ykul.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +13,12 @@ import ru.ykul.model.Group;
 
 
 @Component
+@RequiredArgsConstructor
 public class GroupsService {
 
     private final GroupsDAO groupsDAO;
     private final CoursesDao coursesDao;
     private final StudentsDAO studentsDAO;
-
-    @Autowired
-    public GroupsService(GroupsDAO groupsDAO, CoursesDao coursesDao, StudentsDAO studentsDAO) {
-        this.groupsDAO = groupsDAO;
-        this.coursesDao = coursesDao;
-        this.studentsDAO = studentsDAO;
-    }
 
     @Transactional
     public void deleteGroup(int id) {
@@ -31,7 +26,6 @@ public class GroupsService {
         groupsDAO.delete(id);
     }
 
-    @Transactional
     public void createGroup(Group group, String title) {
         int courseId = coursesDao.showCourseId(title);
         groupsDAO.create(group, courseId);

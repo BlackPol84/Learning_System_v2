@@ -1,5 +1,6 @@
 package ru.ykul.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,14 +11,10 @@ import ru.ykul.model.Teacher;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class TeacherDao {
 
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public TeacherDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<Teacher> index() {
         return jdbcTemplate.query("SELECT * FROM teachers", new BeanPropertyRowMapper<>(Teacher.class));

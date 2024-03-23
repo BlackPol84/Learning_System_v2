@@ -1,7 +1,7 @@
 package ru.ykul.controllers;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,16 +12,11 @@ import ru.ykul.service.CoursesService;
 
 @Controller
 @RequestMapping("/courses")
+@RequiredArgsConstructor
 public class CoursesController {
 
     private final CoursesDao coursesDao;
     private final CoursesService coursesService;
-
-    @Autowired
-    public CoursesController(CoursesDao coursesDao, CoursesService coursesService) {
-        this.coursesDao = coursesDao;
-        this.coursesService = coursesService;
-    }
 
     @GetMapping()
     public String index(Model model) {

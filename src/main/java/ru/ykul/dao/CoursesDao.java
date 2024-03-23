@@ -1,5 +1,6 @@
 package ru.ykul.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,13 +11,9 @@ import ru.ykul.model.Teacher;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class CoursesDao {
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public CoursesDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<Course> index() {
         return jdbcTemplate.query("SELECT courses.*, teachers.firstname, teachers.lastname " +

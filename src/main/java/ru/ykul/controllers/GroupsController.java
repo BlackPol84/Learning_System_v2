@@ -1,28 +1,22 @@
 package ru.ykul.controllers;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.ykul.dao.GroupsDAO;
-import ru.ykul.model.Course;
 import ru.ykul.model.Group;
 import ru.ykul.service.GroupsService;
 
 @Controller
 @RequestMapping("/groups")
+@RequiredArgsConstructor
 public class GroupsController {
 
     private final GroupsDAO groupsDAO;
     private final GroupsService groupsService;
-
-    @Autowired
-    public GroupsController(GroupsDAO groupsDAO, GroupsService groupsService) {
-        this.groupsDAO = groupsDAO;
-        this.groupsService = groupsService;
-    }
 
     @GetMapping()
     public String index(Model model) {

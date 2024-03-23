@@ -1,5 +1,6 @@
 package ru.ykul.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,14 +10,10 @@ import ru.ykul.model.Group;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class GroupsDAO {
 
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public GroupsDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<Group> index() {
         return jdbcTemplate.query("SELECT groups.*, courses.title " +
@@ -31,6 +28,17 @@ public class GroupsDAO {
                                 "WHERE groups.id = ?",
                         new Object[]{id}, new GroupsMapper()).
                 stream().findAny().orElse(null);
+    }
+
+    public Integer showGroupId(String name) {
+        Integer groupId = jdbcTemplate.queryForObject("SELECT id FROM groups " +
+                "WHERE name = ?", Integer.class, name);
+
+        if (groupId != null) {
+            return groupId;
+        } else {
+            throw new RuntimeException("The group was not found");
+        }
     }
 
     public void create(Group group, int courseId) {
