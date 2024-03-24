@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -19,11 +21,13 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 @Configuration
 @ComponentScan("ru.ykul")
 @EnableWebMvc
 @EnableTransactionManagement
+@PropertySource("classpath:application.properties")
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
@@ -58,20 +62,20 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource(Environment env) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/Learning_System_DB");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("848712");
+        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("dataSource.driver.class.name")));
+        dataSource.setUrl(env.getProperty("dataSource.url"));
+        dataSource.setUsername(env.getProperty("dataSource.username"));
+        dataSource.setPassword(env.getProperty("dataSource.password"));
 
         return dataSource;
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
+    public JdbcTemplate jdbcTemplate(Environment env) {
+        return new JdbcTemplate(dataSource(env));
     }
 
     @Bean

@@ -1,12 +1,9 @@
 package ru.ykul.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.ykul.model.Course;
-import ru.ykul.model.Teacher;
 
 import java.util.List;
 

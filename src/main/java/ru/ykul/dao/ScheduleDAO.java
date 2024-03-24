@@ -54,4 +54,19 @@ public class ScheduleDAO {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM schedule WHERE id = ?", id);
     }
+
+    public void deleteTeacherId(int id) {
+        jdbcTemplate.update("UPDATE schedule SET teacher_id = null " +
+                "WHERE teacher_id = ?", id);
+    }
+
+    public void deleteGroupId(int id) {
+        jdbcTemplate.update("UPDATE schedule SET group_id = null " +
+                "WHERE group_id = ?", id);
+    }
+
+    public void deleteCourseId(int id) {
+        jdbcTemplate.update("UPDATE schedule SET course_id = null " +
+                "WHERE course_id = ?", id);
+    }
 }
