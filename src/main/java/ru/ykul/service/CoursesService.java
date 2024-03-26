@@ -26,7 +26,7 @@ public class CoursesService {
     }
 
     public void createCourse(Course course, String firstname, String lastname) {
-        int teacherId = teacherDao.showTeacherId(firstname, lastname);
+        int teacherId = teacherDao.getId(firstname, lastname);
         coursesDao.create(course, teacherId);
     }
 }

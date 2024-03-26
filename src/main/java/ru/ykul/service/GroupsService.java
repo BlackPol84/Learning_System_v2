@@ -26,7 +26,7 @@ public class GroupsService {
     }
 
     public void createGroup(Group group, String title) {
-        int courseId = coursesDao.showCourseId(title);
+        int courseId = coursesDao.getId(title);
         groupsDAO.create(group, courseId);
     }
 }

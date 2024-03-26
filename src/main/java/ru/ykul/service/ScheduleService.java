@@ -7,6 +7,7 @@ import ru.ykul.dao.CoursesDao;
 import ru.ykul.dao.GroupsDAO;
 import ru.ykul.dao.ScheduleDAO;
 import ru.ykul.dao.TeacherDao;
+import ru.ykul.model.Group;
 import ru.ykul.model.Schedule;
 
 @Component
@@ -20,9 +21,10 @@ public class ScheduleService {
 
     public void createSchedule(Schedule schedule, String name, String firstname,
                                String lastname, String title) {
-        int groupId = groupsDAO.showGroupId(name);
-        int teacherId = teacherDao.showTeacherId(firstname, lastname);
-        int courseId = coursesDao.showCourseId(title);
-        scheduleDAO.creat(schedule, groupId, teacherId, courseId);
+        int groupId = groupsDAO.getId(name);
+        int teacherId = teacherDao.getId(firstname, lastname);
+        int courseId = coursesDao.getId(title);
+
+        scheduleDAO.create(schedule, groupId, teacherId, courseId);
     }
 }

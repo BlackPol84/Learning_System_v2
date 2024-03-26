@@ -1,8 +1,6 @@
 package ru.ykul.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -20,14 +18,14 @@ public class TeacherDao {
         return jdbcTemplate.query("SELECT * FROM teachers", new BeanPropertyRowMapper<>(Teacher.class));
     }
 
-    public Teacher show(int id) {
+    public Teacher getById(int id) {
         return jdbcTemplate.query("SELECT teachers.id, teachers.firstname, teachers.lastname " +
                                 "FROM teachers WHERE id = ?",
                         new Object[]{id}, new BeanPropertyRowMapper<>(Teacher.class)).
                 stream().findAny().orElse(null);
     }
 
-    public Integer showTeacherId(String firstName, String lastName) {
+    public Integer getId(String firstName, String lastName) {
         Integer teacherId = jdbcTemplate.queryForObject("SELECT id FROM teachers " +
                 "WHERE firstname = ? AND lastname = ?", Integer.class, firstName, lastName);
 

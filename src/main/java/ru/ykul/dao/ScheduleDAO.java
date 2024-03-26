@@ -3,6 +3,7 @@ package ru.ykul.dao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.ykul.dao.mapper.ScheduleMapper;
 import ru.ykul.model.Schedule;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ScheduleDAO {
                 "LEFT JOIN courses ON schedule.course_id = courses.id", new ScheduleMapper());
     }
 
-    public Schedule show(int id) {
+    public Schedule getById(int id) {
         return jdbcTemplate.query("SELECT schedule.*, groups.name, teachers.firstname, " +
                                 "teachers.lastname, courses.title " +
                                 "FROM schedule " +
@@ -45,7 +46,7 @@ public class ScheduleDAO {
                 updateSchedule.getStartDate(), updateSchedule.getEndDate(), id);
     }
 
-    public void creat(Schedule schedule, int groupId, int teacherId, int courseId) {
+    public void create(Schedule schedule, int groupId, int teacherId, int courseId) {
         jdbcTemplate.update("INSERT INTO schedule (group_id, teacher_id, " +
                 "course_id, start_date, end_date) VALUES (?, ?, ?, ?, ?)",
                 groupId, teacherId, courseId, schedule.getStartDate(), schedule.getEndDate());

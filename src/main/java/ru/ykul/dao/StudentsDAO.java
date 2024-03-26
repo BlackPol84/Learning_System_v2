@@ -3,6 +3,7 @@ package ru.ykul.dao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.ykul.dao.mapper.StudentsMapper;
 import ru.ykul.model.Student;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class StudentsDAO {
                 "groups ON students.group_id = groups.id", new StudentsMapper());
     }
 
-    public Student show(int id) {
+    public Student getById(int id) {
         return jdbcTemplate.query("SELECT students.*, groups.name " +
                                 "FROM students LEFT JOIN " +
                                 "groups ON students.group_id = groups.id " +

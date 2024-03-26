@@ -3,6 +3,7 @@ package ru.ykul.dao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.ykul.dao.mapper.CoursesMapper;
 import ru.ykul.model.Course;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class CoursesDao {
                 "teachers ON courses.teacher_id = teachers.id", new CoursesMapper());
     }
 
-    public Course show(int id) {
+    public Course getById(int id) {
         return jdbcTemplate.query("SELECT courses.*, " +
                                 "teachers.firstname, teachers.lastname " +
                                 "FROM courses LEFT JOIN " +
@@ -28,7 +29,7 @@ public class CoursesDao {
                 stream().findAny().orElse(null);
     }
 
-    public Integer showCourseId(String title) {
+    public Integer getId(String title) {
         Integer courseId = jdbcTemplate.queryForObject("SELECT id FROM courses " +
                 "WHERE title = ?", Integer.class, title);
 

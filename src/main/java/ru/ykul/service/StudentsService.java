@@ -17,7 +17,7 @@ public class StudentsService {
     private final GroupsDAO groupsDAO;
 
     public void createStudent(Student student, String name) {
-        int groupId = groupsDAO.showGroupId(name);
+        int groupId = groupsDAO.getId(name);
         studentsDAO.create(student, groupId);
     }
 }

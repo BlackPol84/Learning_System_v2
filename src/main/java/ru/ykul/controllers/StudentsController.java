@@ -26,7 +26,7 @@ public class StudentsController {
 
     @GetMapping("/{id}/edit")
     public String show(Model model, @PathVariable("id") int id) {
-        model.addAttribute("student", studentsDAO.show(id));
+        model.addAttribute("student", studentsDAO.getById(id));
         return "templates/students-edit";
     }
 

@@ -26,7 +26,7 @@ public class GroupsController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("group", groupsDAO.show(id));
+        model.addAttribute("group", groupsDAO.getById(id));
         return "templates/groups-edit";
     }
 

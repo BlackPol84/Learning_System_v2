@@ -72,10 +72,12 @@
                     <div class="mb-3">
                         <label for="startdate" class="form-label">Start date</label>
                         <input type="text" th:field="*{startDate}" class="form-control" id="startdate">
+                        <div style="color: red" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="enddate" class="form-label">End date</label>
                         <input type="text" th:field="*{endDate}" class="form-control" id="enddate">
+                        <div style="color: red" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="error"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>

@@ -1,5 +1,8 @@
 package ru.ykul.model;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +21,11 @@ public class Schedule {
     private Group group;
     private Teacher teacher;
     private Course course;
+
+    @NotNull(message = "Start date is required")
     @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm")
     private LocalDateTime startDate;
+    @NotNull(message = "End date is required")
     @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm")
     private LocalDateTime endDate;
 

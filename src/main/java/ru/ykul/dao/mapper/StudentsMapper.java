@@ -1,4 +1,4 @@
-package ru.ykul.dao;
+package ru.ykul.dao.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import ru.ykul.model.Group;

@@ -1,10 +1,9 @@
 package ru.ykul.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.ykul.model.Course;
+import ru.ykul.dao.mapper.GroupsMapper;
 import ru.ykul.model.Group;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class GroupsDAO {
                 "courses ON groups.course_id = courses.id", new GroupsMapper());
     }
 
-    public Group show(int id) {
+    public Group getById(int id) {
         return jdbcTemplate.query("SELECT groups.*, courses.title " +
                                 "FROM groups LEFT JOIN " +
                                 "courses ON groups.course_id = courses.id " +
@@ -30,7 +29,7 @@ public class GroupsDAO {
                 stream().findAny().orElse(null);
     }
 
-    public Integer showGroupId(String name) {
+    public Integer getId(String name) {
         Integer groupId = jdbcTemplate.queryForObject("SELECT id FROM groups " +
                 "WHERE name = ?", Integer.class, name);
 

@@ -35,6 +35,12 @@ public class ScheduleController {
         if(bindingResult.hasErrors())
             return "templates/schedule-create";
 
+        if(schedule.getStartDate().isAfter(schedule.getEndDate())) {
+            bindingResult.rejectValue("endDate", "error.endDate",
+                    "End date must be after start date");
+            return "templates/schedule-create";
+        }
+
         scheduleService.createSchedule(schedule, schedule.getGroup().getName(), schedule.getTeacher().
                         getFirstName(), schedule.getTeacher().getLastName(), schedule.getCourse().getTitle());
         return "redirect:/schedule";
@@ -42,7 +48,7 @@ public class ScheduleController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("schedule", scheduleDAO.show(id));
+        model.addAttribute("schedule", scheduleDAO.getById(id));
         return "templates/schedule-edit";
     }
 
